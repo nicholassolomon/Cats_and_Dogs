@@ -6,6 +6,7 @@ import matplotlib.image as mpimg
 import random
 import pathlib
 import numpy as np
+import os
 
 
 def tf_plot_loss_curves(history):
@@ -65,6 +66,22 @@ def walk_through_dir(dir_path):
   for dirpath, dirnames, filenames in os.walk(dir_path):
     print(f"There are {len(dirnames)} directories and {len(filenames)} images in '{dirpath}'.")
 
+def view_random_image(target_dir, target_class):
+  """
+  Select a random image from target_dir and display
+  """
+  target_folder = target_dir+target_class
+
+  # Get a random image path
+  random_image = random.sample(os.listdir(target_folder), 1)
+
+  # Read in the image and plot it using matplotlib
+  img = mpimg.imread(target_folder + "/" + random_image[0])
+  plt.imshow(img)
+  plt.title(target_class)
+  plt.axis("off");
+
+  print(f"Image shape: {img.shape}") # show the shape of the image
 
 
   
