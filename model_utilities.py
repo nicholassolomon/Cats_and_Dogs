@@ -7,6 +7,7 @@ import random
 import pathlib
 import numpy as np
 import os
+import tensorflow as tf
 
 
 def tf_plot_loss_curves(history):
