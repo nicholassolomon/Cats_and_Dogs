@@ -83,5 +83,25 @@ def view_random_image(target_dir, target_class):
 
   print(f"Image shape: {img.shape}") # show the shape of the image
 
+def get_min_max_shapes(image_dir):
+  """
+  This function takes a target directory containing images and returns the minimum and maximum shapes of the images.
 
+  Args:
+    target_dir: The directory containing the images.
+
+  Returns:
+    min_shape: A tuple containing the minimum height, width, and number of channels of the images.
+    max_shape: A tuple containing the maximum height, width, and number of channels of the images.
+  """
+  min_shape = (np.inf, np.inf, np.inf)
+  max_shape = (0, 0, 0)
+  
+  for filename in os.listdir(image_dir):
+    img = tf.keras.preprocessing.image.load_img(os.path.join(image_dir, filename))
+    img_arr = tf.keras.preprocessing.image.img_to_array(img)
+    min_shape = tuple(min(min_shape[i], img_arr.shape[i]) for i in range(3))
+    max_shape = tuple(max(max_shape[i], img_arr.shape[i]) for i in range(3))
+
+  return min_shape, max_shape
   
